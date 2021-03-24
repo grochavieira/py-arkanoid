@@ -26,5 +26,18 @@ destroy_sound = pygame.mixer.Sound(
     "sounds/destroy.wav")  # carrega o som de score
 button_sound = pygame.mixer.Sound(
     "sounds/button.wav")  # carrega o som de botão
+speed_power_sound = pygame.mixer.Sound(
+    "sounds/powerup_speed.wav")
+grow_power_sound = pygame.mixer.Sound(
+    "sounds/powerup_grow.wav")
+guns_power_sound = pygame.mixer.Sound(
+    "sounds/powerup_guns.wav")
+
+
 # cria uma linha que será desenhada no meio da tela
-middle_strip = pygame.Rect(screen_width/2 - 2, 0, 4, screen_height)
+left_boundary = screen_width/4
+right_boundary = screen_width/2 + screen_width/4
+
+left_strip = pygame.Rect(left_boundary - 5, 0, 4, screen_height)
+right_strip = pygame.Rect(
+    right_boundary + 3, 0, 4, screen_height)

@@ -14,36 +14,33 @@ def start():
     # os objetos player e opponent são adicionados a um sprite group
     # para que todos sejam renderizados ao mesmo tempo na tela ou atualizados
     # assim não existe a necessidade de fazer um por um
-    singleplayer_paddle_group = pygame.sprite.Group()
-    singleplayer_paddle_group.add(player)
+    paddle_group = pygame.sprite.Group()
+    paddle_group.add(player)
 
-    singleplayer_block_group = pygame.sprite.Group()
+    block_group = pygame.sprite.Group()
+
+    powerup = engine.PowerUp("images/Ball.png", settings.left_boundary +
+                             300, 100, 2, "grow", paddle_group)
+    powerup_group = pygame.sprite.Group()
+    powerup_group.add(powerup)
 
     for i in range(11):
         for j in range(3):
-            new_block = engine.Block(
-                "images/Block1.png", i * 100 + 140, 100 + j * 50)
-            new_block2 = engine.Block(
-                "images/Block2.png", i * 100 + 140, 100 + j * 50)
-            new_block3 = engine.Block(
-                "images/Block3.png", i * 100 + 140, 100 + j * 50)
-            new_block4 = engine.Block(
-                "images/Block3.png", i * 100 + 140, 100 + j * 50)
+            new_breakable_block = engine.BreakableBlock(
+                "images/Block1.png", settings.left_boundary + i * 51 + 60, 50 + j * 26, j + 2)
 
-            singleplayer_block_group.add(new_block)
-            singleplayer_block_group.add(new_block2)
-            singleplayer_block_group.add(new_block3)
+            block_group.add(new_breakable_block)
 
     # O mesmo que foi feito para o player e opponent é feito para a bola (ball)
     ball = engine.Ball("images/Ball.png", settings.screen_width/2,
-                       settings.screen_height/2, 4, 4, singleplayer_paddle_group, singleplayer_block_group)
+                       settings.screen_height/2, 4, 4, paddle_group, block_group)
     ball_group = pygame.sprite.GroupSingle()
     ball_group.add(ball)
 
     ball.reset_ball(True)
     # instancia a classe GameManager, para ser usada no loop do jogo
-    singleplayer_game_manager = engine.GameManager(
-        ball_group, singleplayer_paddle_group, singleplayer_block_group)
+    game_manager = engine.GameManager(
+        ball_group, paddle_group, block_group, powerup_group)
 
     game_start_time = pygame.time.get_ticks()
     previous_player_score = 0
@@ -82,11 +79,13 @@ def start():
         # Desenha a tela de fundo
         settings.screen.fill(settings.bg_color)
         pygame.draw.rect(settings.screen, settings.accent_color,
-                         settings.middle_strip)
-        singleplayer_block_group.draw(settings.screen)
+                         settings.left_strip)
+        pygame.draw.rect(settings.screen, settings.accent_color,
+                         settings.right_strip)
+        block_group.draw(settings.screen)
 
         # Cuida da renderização e alteração dos objetos do jogo
-        singleplayer_game_manager.run_game()
+        game_manager.run_game()
 
         # Atualiza todo o conteúdo da tela
         pygame.display.flip()

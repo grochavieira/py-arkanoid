@@ -18,6 +18,72 @@ class Block(pygame.sprite.Sprite):
         self.rect = self.image.get_rect(center=(x_pos, y_pos))
 
 
+class PowerUp(Block):
+    def __init__(self, image_path, x_pos, y_pos, speed, powerup, paddle):
+        super().__init__(image_path, x_pos, y_pos)
+        self.powerup_type = powerup
+        self.is_moving = True
+        self.speed = speed
+        self.paddle = paddle
+
+    def update(self):
+        if self.is_moving:
+            self.rect.y += self.speed
+            self.collision()
+
+    def collision(self):
+        if pygame.sprite.spritecollide(self, self.paddle, False):
+            collision_paddle = pygame.sprite.spritecollide(
+                self, self.paddle, False)[0]
+
+            if(self.powerup_type == "speed"):
+                pygame.mixer.Sound.play(settings.speed_power_sound)
+                if (collision_paddle.speed >= 0):
+                    collision_paddle.speed += 1
+                elif (collision_paddle.speed < 0):
+                    collision_paddle.speed -= 1
+
+            if(self.powerup_type == "grow"):
+                pygame.mixer.Sound.play(settings.grow_power_sound)
+                collision_paddle.image = pygame.image.load(
+                    "images/paddle4.png")
+                collision_paddle.rect = collision_paddle.image.get_rect(
+                    center=(collision_paddle.rect.center))
+
+            if(self.powerup_type == "guns"):
+                pygame.mixer.Sound.play(settings.guns_power_sound)
+
+            self.kill()
+
+        if self.rect.bottom >= settings.screen_height:
+            self.kill()
+
+
+class BreakableBlock(Block):
+    def __init__(self, image_path, x_pos, y_pos, life):
+        super().__init__(image_path, x_pos, y_pos)
+        self.initial_life = life
+        self.life = life
+
+    def update(self):
+        if(self.life <= 0):
+            self.kill()
+        if(self.life == 7):
+            self.image = pygame.image.load("images/Block7.png")
+        if(self.life == 6):
+            self.image = pygame.image.load("images/Block6.png")
+        if(self.life == 5):
+            self.image = pygame.image.load("images/Block5.png")
+        if(self.life == 4):
+            self.image = pygame.image.load("images/Block4.png")
+        if(self.life == 3):
+            self.image = pygame.image.load("images/Block3.png")
+        if(self.life == 2):
+            self.image = pygame.image.load("images/Block2.png")
+        if(self.life == 1):
+            self.image = pygame.image.load("images/Block1.png")
+
+
 class Player(Block):  # Classe que define a raquete e suas funções
     def __init__(self, image_path, x_pos, y_pos, speed):
         super().__init__(image_path, x_pos, y_pos)
@@ -26,10 +92,10 @@ class Player(Block):  # Classe que define a raquete e suas funções
 
     # função para limitar até onde a raquete pode ir
     def screen_constrain(self):
-        if self.rect.left <= 0:  # se a raquete chegou até o 'teto' da tela
-            self.rect.left = 0
-        if self.rect.right >= settings.screen_width:  # se a raquete chegou até o 'chão' da tela
-            self.rect.right = settings.screen_width
+        if self.rect.left <= settings.left_boundary:  # se a raquete chegou até o 'teto' da tela
+            self.rect.left = settings.left_boundary
+        if self.rect.right >= settings.right_boundary:  # se a raquete chegou até o 'chão' da tela
+            self.rect.right = settings.right_boundary
 
     # função para atualizar a raquete
     def update(self, ball_group):
@@ -68,7 +134,7 @@ class Ball(Block):  # classe que define a bola e sua funções
             pygame.mixer.Sound.play(settings.hit_sound)
             self.speed_y *= -1  # joga a bola para outra posição
 
-        if self.rect.left <= 0 or self.rect.right >= settings.screen_width:
+        if self.rect.left <= settings.left_boundary or self.rect.right >= settings.right_boundary:
             pygame.mixer.Sound.play(settings.hit_sound)
             self.speed_x *= -1  # joga a bola para outra posição
 
@@ -78,25 +144,24 @@ class Ball(Block):  # classe que define a bola e sua funções
                 self, self.blocks, False)
 
             settings.score += 100 * len(collision_blocks)
-            blockk = collision_blocks[len(collision_blocks) - 1]
-            collision_block = collision_blocks[0].rect
+            collision_block = collision_blocks[0]
 
             pygame.mixer.Sound.play(settings.destroy_sound)
 
-            if abs(self.rect.right - collision_block.left) < 10 and self.speed_x > 0:
+            if abs(self.rect.right - collision_block.rect.left) < 10 and self.speed_x > 0:
                 self.speed_x *= -1
 
-            if abs(self.rect.left - collision_block.right) < 10 and self.speed_x < 0:
+            if abs(self.rect.left - collision_block.rect.right) < 10 and self.speed_x < 0:
                 self.speed_x *= -1
 
-            if abs(self.rect.top - collision_block.bottom) < 10 and self.speed_y < 0:
-                self.rect.top = collision_block.bottom
+            if abs(self.rect.top - collision_block.rect.bottom) < 10 and self.speed_y < 0:
+                self.rect.top = collision_block.rect.bottom
                 self.speed_y *= -1
 
-            if abs(self.rect.bottom - collision_block.top) < 10 and self.speed_y > 0:
-                self.rect.bottom = collision_block.top
+            if abs(self.rect.bottom - collision_block.rect.top) < 10 and self.speed_y > 0:
+                self.rect.bottom = collision_block.rect.top
                 self.speed_y *= -1
-            blockk.kill()
+            collision_block.life -= 1
 
         # a função spritecollide é utilizada para fazer algo
         # quando dois objetos colidem, no caso a colisão das
@@ -193,21 +258,25 @@ class Ball(Block):  # classe que define a bola e sua funções
 
 
 class GameManager:  # classe para gerenciar o jogo
-    def __init__(self, ball_group, paddle_group, block_group):
+    def __init__(self, ball_group, paddle_group, block_group, powerup_group):
         self.player_score = 0
         self.ball_group = ball_group
         self.paddle_group = paddle_group
         self.block_group = block_group
+        self.powerup_group = powerup_group
 
     def run_game(self):
         # Desenha os objetos do jogo
         self.paddle_group.draw(settings.screen)
         self.ball_group.draw(settings.screen)
         self.block_group.draw(settings.screen)
+        self.powerup_group.draw(settings.screen)
 
         # Atualiza os objetos do jogo
         self.paddle_group.update(self.ball_group)
         self.ball_group.update()
+        self.block_group.update()
+        self.powerup_group.update()
         self.reset_ball()
         self.draw_score()
 

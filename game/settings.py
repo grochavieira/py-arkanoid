@@ -19,7 +19,7 @@ score = 0
 
 bg_color = pygame.Color("#020122")  # code de fundo
 accent_color = (253, 255, 252)  # cor das letras e linha no meio
-basic_font = pygame.font.Font("freesansbold.ttf", 32)  # carrega a fonte
+basic_font = pygame.font.Font("fonts/8-BIT-WONDER.ttf", 20)  # carrega a fonte
 hit_sound = pygame.mixer.Sound("sounds/pong.wav")  # carrega o som de hit
 score_sound = pygame.mixer.Sound("sounds/score.wav")  # carrega o som de score
 destroy_sound = pygame.mixer.Sound(
@@ -32,7 +32,10 @@ grow_power_sound = pygame.mixer.Sound(
     "sounds/powerup_grow.wav")
 guns_power_sound = pygame.mixer.Sound(
     "sounds/powerup_guns.wav")
+laser_sound = pygame.mixer.Sound(
+    "sounds/laser.wav")
 
+powerups = ["grow", "speed", "guns"]
 
 # cria uma linha que será desenhada no meio da tela
 left_boundary = screen_width/4

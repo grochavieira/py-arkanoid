@@ -325,6 +325,10 @@ class GameManager:  # classe para gerenciar o jogo
         self.draw_score()
         self.draw_ammunition()
         self.draw_life()
+        self.stage_level()
+
+        if(len(self.block_group) == 0):
+            settings.finished_level = True
 
     # função utilizada para verificar e chamar a função
     # de resetar a bola quando ocorrer colisão nas laterais
@@ -343,7 +347,7 @@ class GameManager:  # classe para gerenciar o jogo
         # cria um objeto ao redor do texto dos scores
         # e também define a posição do texto
         player_score_rect = player_score.get_rect(
-            midleft=(20, 50))
+            midleft=(20, 70))
 
         # coloca os scores na tela
         settings.screen.blit(player_score, player_score_rect)
@@ -353,7 +357,7 @@ class GameManager:  # classe para gerenciar o jogo
             "AMMUNITION " + str(self.paddle_group.sprite.ammunition), True, settings.accent_color)
 
         player_score_rect = player_score.get_rect(
-            midleft=(20, 100))
+            midleft=(20, 120))
 
         settings.screen.blit(player_score, player_score_rect)
 
@@ -362,7 +366,16 @@ class GameManager:  # classe para gerenciar o jogo
             "LIFES " + str(self.paddle_group.sprite.life), True, settings.accent_color)
 
         player_score_rect = player_score.get_rect(
-            midleft=(20, 150))
+            midleft=(20, 170))
+
+        settings.screen.blit(player_score, player_score_rect)
+
+    def stage_level(self):
+        player_score = settings.basic_font.render(
+            "LEVEL " + str(settings.current_stage), True, settings.accent_color)
+
+        player_score_rect = player_score.get_rect(
+            midleft=(20, 20))
 
         settings.screen.blit(player_score, player_score_rect)
 
@@ -383,15 +396,19 @@ class Button(pygame.sprite.Sprite):
         super().__init__()
         self.sprites = []
 
-        for i in range(number_of_images):
-            image_path = base_images_path + str(i + 1) + ".png"
+        if number_of_images > 0:
+            for i in range(number_of_images):
+                image_path = base_images_path + str(i + 1) + ".png"
+                self.sprites.append(pygame.image.load(image_path))
+        else:
+            image_path = base_images_path + ".png"
             self.sprites.append(pygame.image.load(image_path))
 
         self.current_sprite = 0
         self.image = self.sprites[self.current_sprite]
 
         self.rect = self.image.get_rect()
-        self.rect.topleft = [pos_x, pos_y]
+        self.rect.center = [pos_x, pos_y]
 
     def update(self):
         self.current_sprite += 0.07
@@ -416,7 +433,7 @@ class Text(pygame.sprite.Sprite):
         self.image = self.sprites[self.current_sprite]
 
         self.rect = self.image.get_rect()
-        self.rect.topleft = [pos_x, pos_y]
+        self.rect.center = [pos_x, pos_y]
 
     def update(self):
         self.current_sprite += self.sprite_velocity

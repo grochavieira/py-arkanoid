@@ -3,6 +3,6 @@ import sys
 import random
 import settings
 import engine
-import game
+import main_menu
 
-game.start()
+main_menu.start()

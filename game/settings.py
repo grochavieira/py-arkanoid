@@ -35,6 +35,10 @@ guns_power_sound = pygame.mixer.Sound(
 laser_sound = pygame.mixer.Sound(
     "sounds/laser.wav")
 
+current_stage = 1
+is_winning = True
+finished_level = False
+
 powerups = ["grow", "speed", "guns"]
 
 # cria uma linha que será desenhada no meio da tela

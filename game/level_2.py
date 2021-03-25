@@ -6,7 +6,8 @@ import engine
 
 
 def start():
-
+    settings.current_stage = 2
+    settings.finished_level = False
     laser_group = pygame.sprite.Group()
 
     # instância as classes de player e opponent
@@ -24,11 +25,11 @@ def start():
     powerup_group = pygame.sprite.Group()
 
     for i in range(11):
-        for j in range(3):
+        for j in range(5):
             new_powerup = engine.PowerUp(
                 "images/powerups/invisible.png", settings.left_boundary + i * 51 + 60, 50 + j * 26, paddle_group)
             new_breakable_block = engine.BreakableBlock(
-                "images/blocks/Block1.png", settings.left_boundary + i * 51 + 60, 50 + j * 26, 1, new_powerup)
+                "images/blocks/Block1.png", settings.left_boundary + i * 51 + 60, 50 + j * 26, j + 1, new_powerup)
 
             block_group.add(new_breakable_block)
             powerup_group.add(new_powerup)

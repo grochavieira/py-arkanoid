@@ -55,6 +55,9 @@ Jogo do arkanoid feito em python para a matéria de Desenvolvimento de Jogos do 
   - [x] +1 Vida;
   - [x] - Velocidade (até o dobro da velocidade da raquete);
   - [x] Munição para lasers (3 munições - 2 tiros para cada uma).
+- [x] Sistema de pontuação:
+  - [x] 100 pontos por cada acerto nos bloquinhos;
+  - [x] Ao destruir um bloquinho você ganha 100 + 100 \* vida do bloquinho
 
 ---
 

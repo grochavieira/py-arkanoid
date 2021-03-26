@@ -17,7 +17,7 @@ pygame.display.set_caption("Pong")  # titulo
 
 score = 0
 
-bg_color = pygame.Color("#020122")  # code de fundo
+bg_color = pygame.Color("#020122")  # cor de fundo
 accent_color = (253, 255, 252)  # cor das letras e linha no meio
 basic_font = pygame.font.Font("fonts/8-BIT-WONDER.ttf", 20)  # carrega a fonte
 hit_sound = pygame.mixer.Sound("sounds/pong.wav")  # carrega o som de hit

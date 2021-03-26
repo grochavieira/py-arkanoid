@@ -5,6 +5,8 @@ import settings
 import engine
 
 
+
+
 def start():
     settings.current_stage = 1
     settings.finished_level = False
@@ -26,13 +28,15 @@ def start():
 
     for i in range(11):
         for j in range(3):
-            new_powerup = engine.PowerUp(
-                "images/powerups/invisible.png", settings.left_boundary + i * 51 + 60, 50 + j * 26, paddle_group)
+            new_powerup = engine.PowerUp( #1o parametro define o powerup
+                random.randint(0, 2), "images/powerups/invisible.png", settings.left_boundary + i * 51 + 60, 50 + j * 26, paddle_group)
             new_breakable_block = engine.BreakableBlock(
                 "images/blocks/Block1.png", settings.left_boundary + i * 51 + 60, 50 + j * 26, 1, new_powerup)
 
             block_group.add(new_breakable_block)
             powerup_group.add(new_powerup)
+
+
 
     # O mesmo que foi feito para o player e opponent é feito para a bola (ball)
     ball = engine.Ball("images/Ball.png", player.rect.x + 25,
@@ -93,8 +97,13 @@ def start():
                     # reseta o movimento do jogador para 0
                     player.movement -= player.speed
 
+
         # Desenha a tela de fundo
         settings.screen.fill(settings.bg_color)
+        bgImg = pygame.image.load('images/640x720/city.png')
+        bgScaled = pygame.transform.scale(bgImg, (640, 720))
+        settings.screen.blit(bgScaled,(320,0))
+        
         pygame.draw.rect(settings.screen, settings.accent_color,
                          settings.left_strip)
         pygame.draw.rect(settings.screen, settings.accent_color,

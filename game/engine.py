@@ -10,6 +10,12 @@ import settings
 # se tratar de elementos em comum
 
 
+pwrUpVector = ["1.png","2.png","3.png","4.png","5.png",
+                    "6.png","7.png","8.png","9.png","10.png",
+                    "11.png","12.png","13.png","14.png","15.png",
+                    "16.png","17.png","18.png","19.png","20.png"]
+pwrUpTemp = ["16.png","12.png","4.png"]
+
 class Block(pygame.sprite.Sprite):
     def __init__(self, image_path, x_pos, y_pos):
         super().__init__()
@@ -49,9 +55,13 @@ class Laser(Block):
 
 
 class PowerUp(Block):
-    def __init__(self, image_path, x_pos, y_pos, paddle):
+    def __init__(self,randomizer, image_path, x_pos, y_pos, paddle):
         super().__init__(image_path, x_pos, y_pos)
-        self.powerup_type = settings.powerups[random.randint(2, 2)]
+        self.id = randomizer
+
+
+        self.powerup_type = settings.powerups[self.id] #random 
+        print(self.powerup_type)
         self.is_active = False
         self.speed = 2
         self.paddle = paddle
@@ -60,12 +70,19 @@ class PowerUp(Block):
     def update(self):
         if self.is_active:
             if(self.spawn_value <= 100):
-                self.image = pygame.image.load("images/powerups/Ball.png")
+                self.image = pygame.image.load("images/powerups/"+pwrUpTemp[self.id])
                 self.rect.y += self.speed
                 self.collision()
             else:
                 self.kill()
 
+
+#Aqui começa a parte de PowerUp ~~VictorM302
+# No total serão 20 PowerUps
+# 3 já estão em vigor
+# 
+# 
+# #
     def collision(self):
         if pygame.sprite.spritecollide(self, self.paddle, False):
             collision_paddle = pygame.sprite.spritecollide(

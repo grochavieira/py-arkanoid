@@ -27,7 +27,7 @@ def start():
     for i in range(11):
         for j in range(5):
             new_powerup = engine.PowerUp(
-                "images/powerups/invisible.png", settings.left_boundary + i * 51 + 60, 50 + j * 26, paddle_group)
+                random.randint(0, 2), "images/powerups/invisible.png", settings.left_boundary + i * 51 + 60, 50 + j * 26, paddle_group)
             new_breakable_block = engine.BreakableBlock(
                 "images/blocks/Block1.png", settings.left_boundary + i * 51 + 60, 50 + j * 26, j + 1, new_powerup)
 
@@ -91,6 +91,10 @@ def start():
 
         # Desenha a tela de fundo
         settings.screen.fill(settings.bg_color)
+        bgImg = pygame.image.load('images/640x720/grass.png')
+        bgScaled = pygame.transform.scale(bgImg, (640, 720))
+        settings.screen.blit(bgScaled,(320,0))
+        
         pygame.draw.rect(settings.screen, settings.accent_color,
                          settings.left_strip)
         pygame.draw.rect(settings.screen, settings.accent_color,

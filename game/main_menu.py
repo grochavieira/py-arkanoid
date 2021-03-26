@@ -8,6 +8,7 @@ import level_2
 
 
 def start():  # menu principal do jogo
+    pygame.mixer.Sound.play(settings.main_theme) #toca fireflies OwO
     # botão para iniciar o jogo
     start_button = engine.Button(
         "images/btn_start/start_game", 0, settings.screen_width/2 - 20, 400)

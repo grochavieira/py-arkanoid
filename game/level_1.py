@@ -8,6 +8,7 @@ import engine
 
 
 def start():
+    pygame.mixer.Sound.stop(settings.main_theme)
     settings.current_stage = 1
     settings.finished_level = False
     laser_group = pygame.sprite.Group()

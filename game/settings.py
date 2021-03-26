@@ -20,6 +20,12 @@ score = 0
 bg_color = pygame.Color("#020122")  # cor de fundo
 accent_color = (253, 255, 252)  # cor das letras e linha no meio
 basic_font = pygame.font.Font("fonts/8-BIT-WONDER.ttf", 20)  # carrega a fonte
+
+
+#Trilha
+main_theme = pygame.mixer.Sound("sounds/fireflies.wav")
+
+#Efeitos Sonoros
 hit_sound = pygame.mixer.Sound("sounds/pong.wav")  # carrega o som de hit
 score_sound = pygame.mixer.Sound("sounds/score.wav")  # carrega o som de score
 destroy_sound = pygame.mixer.Sound(

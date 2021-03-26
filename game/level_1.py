@@ -29,8 +29,8 @@ def start():
 
     for i in range(11):
         for j in range(3):
-            new_powerup = engine.PowerUp( #1o parametro define o powerup
-                random.randint(0, 2), "images/powerups/invisible.png", settings.left_boundary + i * 51 + 60, 50 + j * 26, paddle_group)
+            new_powerup = engine.PowerUp( #1o parametro define o powerup #UP302 -> random.randint(0, 20)
+                random.randint(0, 3), "images/powerups/invisible.png", settings.left_boundary + i * 51 + 60, 50 + j * 26, paddle_group)
             new_breakable_block = engine.BreakableBlock(
                 "images/blocks/Block1.png", settings.left_boundary + i * 51 + 60, 50 + j * 26, 1, new_powerup)
 
@@ -38,12 +38,13 @@ def start():
             powerup_group.add(new_powerup)
 
 
-
     # O mesmo que foi feito para o player e opponent é feito para a bola (ball)
     ball = engine.Ball("images/Ball.png", player.rect.x + 25,
                        settings.screen_height/2, 4, 4, paddle_group, block_group)
     ball_group = pygame.sprite.GroupSingle()
+    
     ball_group.add(ball)
+
 
     ball.reset_ball(True)
     # instancia a classe GameManager, para ser usada no loop do jogo
@@ -97,7 +98,6 @@ def start():
                 if event.key == pygame.K_RIGHT:
                     # reseta o movimento do jogador para 0
                     player.movement -= player.speed
-
 
         # Desenha a tela de fundo
         settings.screen.fill(settings.bg_color)

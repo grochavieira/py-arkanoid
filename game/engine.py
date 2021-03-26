@@ -9,12 +9,15 @@ import settings
 # necessário repetir a mesma coisa nas outras por
 # se tratar de elementos em comum
 
+''' Vetores para armazenar powerUps
+    Para implementar, pesquisar por: UP302
 
+'''
 pwrUpVector = ["1.png","2.png","3.png","4.png","5.png",
                     "6.png","7.png","8.png","9.png","10.png",
                     "11.png","12.png","13.png","14.png","15.png",
-                    "16.png","17.png","18.png","19.png","20.png"]
-pwrUpTemp = ["16.png","12.png","4.png"]
+                    "16.png","17.png","18.png","19.png","20.png"] #UP302
+pwrUpTemp = ["16.png","12.png","4.png", "19.png"]
 
 class Block(pygame.sprite.Sprite):
     def __init__(self, image_path, x_pos, y_pos):
@@ -58,8 +61,6 @@ class PowerUp(Block):
     def __init__(self,randomizer, image_path, x_pos, y_pos, paddle):
         super().__init__(image_path, x_pos, y_pos)
         self.id = randomizer
-
-
         self.powerup_type = settings.powerups[self.id] #random 
         print(self.powerup_type)
         self.is_active = False
@@ -70,7 +71,7 @@ class PowerUp(Block):
     def update(self):
         if self.is_active:
             if(self.spawn_value <= 100):
-                self.image = pygame.image.load("images/powerups/"+pwrUpTemp[self.id])
+                self.image = pygame.image.load("images/powerups/"+pwrUpTemp[self.id]) # UP302 -> pwrUpTemp = pwrUpVector
                 self.rect.y += self.speed
                 self.collision()
             else:
@@ -80,15 +81,15 @@ class PowerUp(Block):
 #Aqui começa a parte de PowerUp ~~VictorM302
 # No total serão 20 PowerUps
 # 3 já estão em vigor
-# 
-# 
 # #
     def collision(self):
+
         if pygame.sprite.spritecollide(self, self.paddle, False):
             collision_paddle = pygame.sprite.spritecollide(
                 self, self.paddle, False)[0]
 
-            if(self.powerup_type == "speed"):
+            #raquete mais rápida
+            if(self.powerup_type == "speed"): 
                 pygame.mixer.Sound.play(settings.speed_power_sound)
                 if(collision_paddle.speed < collision_paddle.initial_speed):
                     if (collision_paddle.speed >= 0):
@@ -96,6 +97,7 @@ class PowerUp(Block):
                     elif (collision_paddle.speed < 0):
                         collision_paddle.speed -= 1
 
+            #raquete maior
             if(self.powerup_type == "grow"):
                 pygame.mixer.Sound.play(settings.grow_power_sound)
                 collision_paddle.image = pygame.image.load(
@@ -103,10 +105,17 @@ class PowerUp(Block):
                 collision_paddle.rect = collision_paddle.image.get_rect(
                     center=(collision_paddle.rect.center))
 
+            #raquete atira
             if(self.powerup_type == "guns"):
                 collision_paddle.ammunition += 3
                 pygame.mixer.Sound.play(settings.guns_power_sound)
-
+            '''
+            #bola maior
+            if(self.powerup_type == "growBall"):
+                ball.image = pygame.image.load("images/Ball2.png")
+                #etc
+            '''
+                
             self.kill()
 
         if self.rect.bottom >= settings.screen_height:

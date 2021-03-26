@@ -51,14 +51,14 @@ class Laser(Block):
 class PowerUp(Block):
     def __init__(self, image_path, x_pos, y_pos, paddle):
         super().__init__(image_path, x_pos, y_pos)
-        self.powerup_type = settings.powerups[random.randint(3, 3)]
+        self.powerup_type = settings.powerups[random.randint(0, 4)]
         self.is_active = False
         self.speed = 2
         self.paddle = paddle
         self.spawn_value = random.randint(1, 100)
 
     def update(self):
-        if self.spawn_value > 100:
+        if self.spawn_value > 30:
             self.kill()
         if self.is_active:
             self.image = pygame.image.load(
@@ -171,6 +171,9 @@ class Player(Block):  # Classe que define a raquete e suas funções
         self.movement = 0
         self.can_shoot = False
         self.ammunition = 0
+        self.image = pygame.image.load(
+                    "images/paddle_normal.png")
+        self.rect.center = (settings.screen_width/2, settings.screen_height - 20)
 
 
 class Ball(Block):  # classe que define a bola e sua funções

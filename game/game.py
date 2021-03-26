@@ -282,6 +282,11 @@ class GameState():
             self.game_events("randomizer")
 
             settings.screen.fill(settings.bg_color)
+
+            bg_image = pygame.image.load('images/levels/night.png')
+            bg_scaled = pygame.transform.scale(bg_image, (640, 720))
+            settings.screen.blit(bg_scaled, (320, 0))
+
             pygame.draw.rect(settings.screen, settings.accent_color,
                              settings.left_strip)
             pygame.draw.rect(settings.screen, settings.accent_color,
@@ -483,7 +488,7 @@ class GameState():
 
             settings.screen.fill(settings.bg_color)
 
-            bg_image = pygame.image.load('images/levels/city.png')
+            bg_image = pygame.image.load('images/levels/night.png')
             bg_scaled = pygame.transform.scale(bg_image, (640, 720))
             settings.screen.blit(bg_scaled, (320, 0))
 

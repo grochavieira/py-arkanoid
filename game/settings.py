@@ -13,7 +13,7 @@ screen_height = 720  # altura
 
 # cria a janela do jogo
 screen = pygame.display.set_mode((screen_width, screen_height))
-pygame.display.set_caption("Pong")  # titulo
+pygame.display.set_caption("Arkanoid")  # titulo
 
 score = 0
 

@@ -100,6 +100,7 @@ def start():
 
         # Desenha a tela de fundo
         settings.screen.fill(settings.bg_color)
+        
         bgImg = pygame.image.load('images/640x720/city.png')
         bgScaled = pygame.transform.scale(bgImg, (640, 720))
         settings.screen.blit(bgScaled,(320,0))

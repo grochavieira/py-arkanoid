@@ -372,15 +372,35 @@ class GameManager:  # classe para gerenciar o jogo
     def draw_ammunition(self):
         player_score = settings.basic_font.render(
             "AMMUNITION " + str(self.paddle_group.sprite.ammunition), True, settings.accent_color)
+        bullet = pygame.image.load('images/bullet.png')
+        bulletScaled = pygame.transform.scale(bullet, (40, 35))
+        settings.screen.blit(bulletScaled,(260,103))
 
         player_score_rect = player_score.get_rect(
             midleft=(20, 120))
 
         settings.screen.blit(player_score, player_score_rect)
 
+    def draw_heart(self, life):
+        heart = pygame.image.load('images/life.png')
+        heartScaled = pygame.transform.scale(heart, (40, 35))
+        if (life == 3):
+            settings.screen.blit(heartScaled,(120,155))
+            settings.screen.blit(heartScaled,(160,155))
+            settings.screen.blit(heartScaled,(200,155))
+        if (life == 2):
+            settings.screen.blit(heartScaled,(120,155))
+            settings.screen.blit(heartScaled,(160,155))
+        if (life == 1):
+            settings.screen.blit(heartScaled,(120,155))
+        if (life == 0):
+            print("YOU DIED")
+    #desenha vidas
     def draw_life(self):
         player_score = settings.basic_font.render(
-            "LIFES " + str(self.paddle_group.sprite.life), True, settings.accent_color)
+            "LIFES " , True, settings.accent_color)
+        #+str(self.paddle_group.sprite.life)
+        self.draw_heart(self.paddle_group.sprite.life)
 
         player_score_rect = player_score.get_rect(
             midleft=(20, 170))

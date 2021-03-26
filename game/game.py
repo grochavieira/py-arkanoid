@@ -515,7 +515,7 @@ class GameState():
         if self.state == "randomizer":
             self.randomizer()
         if self.state == "level_1":
-            self.level_1()
+            self.level_5()
         if self.state == "level_2":
             self.level_2()
         if self.state == "level_3":

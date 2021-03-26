@@ -63,23 +63,53 @@ Jogo do arkanoid feito em python para a matéria de Desenvolvimento de Jogos do 
 
 ## 🎨 Layout
 
-<!-- ### Menu
+### Tela Inicial
 
 <div align="center">
     <img width="100%" src="./assets/arkanoid_screen.gif" />
 </div>
 
-### Jogo Single Player
+### Randomizer
 
 <div align="center">
-    <img width="100%" src="./assets/singleplayer_screen.png" />
+    <img width="100%" src="./assets/randomizer.PNG" />
 </div>
 
-### Jogo Multiplayer
+### Level 1
 
 <div align="center">
-    <img width="100%" src="./assets/multiplayer_screen.png" />
-</div> -->
+    <img width="100%" src="./assets/level_1.PNG" />
+</div>
+
+### Level 2
+
+<div align="center">
+    <img width="100%" src="./assets/level_2.PNG" />
+</div>
+
+### Level 3
+
+<div align="center">
+    <img width="100%" src="./assets/level_3.PNG" />
+</div>
+
+### Level 4
+
+<div align="center">
+    <img width="100%" src="./assets/level_4.PNG" />
+</div>
+
+### Level 5
+
+<div align="center">
+    <img width="100%" src="./assets/level_5.PNG" />
+</div>
+
+### Lost Screen
+
+<div align="center">
+    <img width="100%" src="./assets/lost_screen.PNG" />
+</div>
 
 ---
 

@@ -3,6 +3,10 @@ import sys
 import random
 import settings
 import engine
-import main_menu
+import game
 
-main_menu.start()
+game_state = game.GameState()
+
+
+while True:
+    game_state.state_manager()

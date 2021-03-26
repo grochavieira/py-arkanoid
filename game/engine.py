@@ -9,15 +9,6 @@ import settings
 # necessário repetir a mesma coisa nas outras por
 # se tratar de elementos em comum
 
-''' Vetores para armazenar powerUps
-    Para implementar, pesquisar por: UP302
-
-'''
-pwrUpVector = ["1.png","2.png","3.png","4.png","5.png",
-                    "6.png","7.png","8.png","9.png","10.png",
-                    "11.png","12.png","13.png","14.png","15.png",
-                    "16.png","17.png","18.png","19.png","20.png"] #UP302
-pwrUpTemp = ["16.png","12.png","4.png", "19.png"]
 
 class Block(pygame.sprite.Sprite):
     def __init__(self, image_path, x_pos, y_pos):
@@ -35,7 +26,7 @@ class Laser(Block):
         self.blocks = blocks
 
     def update(self):
-        self.rect.y -= self.speed
+        self.rect.y -= self.speed - 0.5
         self.collision()
 
     def collision(self):
@@ -58,38 +49,47 @@ class Laser(Block):
 
 
 class PowerUp(Block):
-    def __init__(self,randomizer, image_path, x_pos, y_pos, paddle):
+    def __init__(self, image_path, x_pos, y_pos, paddle):
         super().__init__(image_path, x_pos, y_pos)
-        self.id = randomizer
-        self.powerup_type = settings.powerups[self.id] #random 
-        print(self.powerup_type)
+        self.powerup_type = settings.powerups[random.randint(3, 3)]
         self.is_active = False
         self.speed = 2
         self.paddle = paddle
         self.spawn_value = random.randint(1, 100)
 
     def update(self):
+        if self.spawn_value > 100:
+            self.kill()
         if self.is_active:
-            if(self.spawn_value <= 100):
-                self.image = pygame.image.load("images/powerups/"+pwrUpTemp[self.id]) # UP302 -> pwrUpTemp = pwrUpVector
-                self.rect.y += self.speed
-                self.collision()
-            else:
-                self.kill()
+            self.image = pygame.image.load(
+                "images/powerups/" + self.powerup_type + ".png")
+            self.rect.y += self.speed
+            self.collision()
 
-
-#Aqui começa a parte de PowerUp ~~VictorM302
-# No total serão 20 PowerUps
-# 3 já estão em vigor
-# #
     def collision(self):
 
         if pygame.sprite.spritecollide(self, self.paddle, False):
             collision_paddle = pygame.sprite.spritecollide(
                 self, self.paddle, False)[0]
 
-            #raquete mais rápida
-            if(self.powerup_type == "speed"): 
+            # raquete maior
+            if(self.powerup_type == "grow_paddle"):
+                pygame.mixer.Sound.play(settings.grow_power_sound)
+                collision_paddle.image = pygame.image.load(
+                    "images/paddle_grow.png")
+                collision_paddle.rect = collision_paddle.image.get_rect(
+                    center=(collision_paddle.rect.center))
+
+            # raquete maior
+            if(self.powerup_type == "shrink_paddle"):
+                pygame.mixer.Sound.play(settings.grow_power_sound)
+                collision_paddle.image = pygame.image.load(
+                    "images/paddle_normal.png")
+                collision_paddle.rect = collision_paddle.image.get_rect(
+                    center=(collision_paddle.rect.center))
+
+            # raquete mais rápida
+            if(self.powerup_type == "increase_paddle_speed"):
                 pygame.mixer.Sound.play(settings.speed_power_sound)
                 if(collision_paddle.speed < collision_paddle.initial_speed):
                     if (collision_paddle.speed >= 0):
@@ -97,25 +97,16 @@ class PowerUp(Block):
                     elif (collision_paddle.speed < 0):
                         collision_paddle.speed -= 1
 
-            #raquete maior
-            if(self.powerup_type == "grow"):
-                pygame.mixer.Sound.play(settings.grow_power_sound)
-                collision_paddle.image = pygame.image.load(
-                    "images/paddle4.png")
-                collision_paddle.rect = collision_paddle.image.get_rect(
-                    center=(collision_paddle.rect.center))
-
-            #raquete atira
-            if(self.powerup_type == "guns"):
+            # raquete atira
+            if(self.powerup_type == "laser_ammunition"):
                 collision_paddle.ammunition += 3
                 pygame.mixer.Sound.play(settings.guns_power_sound)
-            '''
-            #bola maior
-            if(self.powerup_type == "growBall"):
-                ball.image = pygame.image.load("images/Ball2.png")
-                #etc
-            '''
-                
+
+            if(self.powerup_type == "plus_one_life"):
+                if(collision_paddle.life < 5):
+                    collision_paddle.life += 1
+                pygame.mixer.Sound.play(settings.grow_power_sound)
+
             self.kill()
 
         if self.rect.bottom >= settings.screen_height:
@@ -150,13 +141,12 @@ class BreakableBlock(Block):
 
 
 class Player(Block):  # Classe que define a raquete e suas funções
-    def __init__(self, image_path, x_pos, y_pos, speed, lasers):
+    def __init__(self, image_path, x_pos, y_pos, speed):
         super().__init__(image_path, x_pos, y_pos)
         self.life = 3
         self.initial_speed = speed
         self.speed = speed  # define a velocidade do jogador
         self.movement = 0  # define a movimentação do jogador
-        self.lasers = lasers
         self.can_shoot = False
         self.ammunition = 0
 
@@ -174,6 +164,13 @@ class Player(Block):  # Classe que define a raquete e suas funções
 
     def shoot_laser(self):
         self.ammunition -= 1
+
+    def reset(self):
+        self.life = 3
+        self.speed = self.initial_speed
+        self.movement = 0
+        self.can_shoot = False
+        self.ammunition = 0
 
 
 class Ball(Block):  # classe que define a bola e sua funções
@@ -309,6 +306,7 @@ class Ball(Block):  # classe que define a bola e sua funções
         if 1400 < current_time - self.score_time <= 2100:
             countdown_number = 1
         if current_time - self.score_time >= 2100:
+            countdown_number = 0
             self.paddle.sprite.can_shoot = True
             self.active = True
 
@@ -319,7 +317,7 @@ class Ball(Block):  # classe que define a bola e sua funções
         time_counter_rect = time_counter.get_rect(
             center=(settings.screen_width/2, settings.screen_height/2 + 50))
         # desenha na tela o retangulo
-        pygame.draw.rect(settings.screen, settings.bg_color, time_counter_rect)
+        # pygame.draw.rect(settings.screen, settings.bg_color, time_counter_rect)
         # coloca de fato na tela o contador
         settings.screen.blit(time_counter, time_counter_rect)
 
@@ -327,6 +325,9 @@ class Ball(Block):  # classe que define a bola e sua funções
 class GameManager:  # classe para gerenciar o jogo
     def __init__(self, ball_group, paddle_group, block_group, powerup_group, laser_group):
         self.player_score = 0
+        self.current_stage = 0
+        self.is_winning = True
+        self.has_finished_level = False
         self.ball_group = ball_group
         self.paddle_group = paddle_group
         self.block_group = block_group
@@ -334,6 +335,9 @@ class GameManager:  # classe para gerenciar o jogo
         self.laser_group = laser_group
 
     def run_game(self):
+        if(self.paddle_group.sprite.life <= 0):
+            self.is_winning = False
+
         # Desenha os objetos do jogo
         self.paddle_group.draw(settings.screen)
         self.ball_group.draw(settings.screen)
@@ -354,7 +358,7 @@ class GameManager:  # classe para gerenciar o jogo
         self.stage_level()
 
         if(len(self.block_group) == 0):
-            settings.finished_level = True
+            self.has_finished_level = True
 
     # função utilizada para verificar e chamar a função
     # de resetar a bola quando ocorrer colisão nas laterais
@@ -362,68 +366,93 @@ class GameManager:  # classe para gerenciar o jogo
         if self.ball_group.sprite.rect.bottom >= settings.screen_height:  # a bola saiu pela direita
             self.paddle_group.sprite.life -= 1
             self.ball_group.sprite.reset_ball(False)  # reseta a bola
+            for powerup in self.powerup_group.sprites():
+                if(powerup.is_active):
+                    powerup.kill()
 
-    # função para desenhar o score na tela
+            for laser in self.laser_group.sprites():
+                laser.kill()
+
+    def reset_game(self):
+        self.paddle_group.sprite.reset()
+        self.is_winning = True
+        self.has_finished_level = False
+        for block in self.block_group.sprites():
+            block.kill()
+
+        for powerup in self.powerup_group.sprites():
+            powerup.kill()
+
+        for laser in self.laser_group.sprites():
+            laser.kill()
+
+    def soft_reset(self):
+        self.paddle_group.sprite.rect.center = (
+            settings.screen_width/2, settings.screen_height - 20)
+        for powerup in self.powerup_group.sprites():
+            powerup.kill()
+
+        for laser in self.laser_group.sprites():
+            laser.kill()
+
     def draw_score(self):
-        # cria o texto para o score do jogador
-        # e do oponente
         player_score = settings.basic_font.render(
             "SCORE " + str(settings.score), True, settings.accent_color)
 
-        # cria um objeto ao redor do texto dos scores
-        # e também define a posição do texto
         player_score_rect = player_score.get_rect(
-            midleft=(20, 70))
+            midleft=(10, 70))
 
-        # coloca os scores na tela
         settings.screen.blit(player_score, player_score_rect)
 
     def draw_ammunition(self):
-        player_score = settings.basic_font.render(
+        ammunition_text = settings.basic_font.render(
             "AMMUNITION " + str(self.paddle_group.sprite.ammunition), True, settings.accent_color)
         bullet = pygame.image.load('images/bullet.png')
         bulletScaled = pygame.transform.scale(bullet, (40, 35))
-        settings.screen.blit(bulletScaled,(260,103))
+        settings.screen.blit(bulletScaled, (260, 103))
 
-        player_score_rect = player_score.get_rect(
-            midleft=(20, 120))
+        ammunition_text_rect = ammunition_text.get_rect(
+            midleft=(10, 120))
 
-        settings.screen.blit(player_score, player_score_rect)
+        settings.screen.blit(ammunition_text, ammunition_text_rect)
 
     def draw_heart(self, life):
         heart = pygame.image.load('images/life.png')
         heartScaled = pygame.transform.scale(heart, (40, 35))
-        if (life == 3):
-            settings.screen.blit(heartScaled,(120,155))
-            settings.screen.blit(heartScaled,(160,155))
-            settings.screen.blit(heartScaled,(200,155))
-        if (life == 2):
-            settings.screen.blit(heartScaled,(120,155))
-            settings.screen.blit(heartScaled,(160,155))
-        if (life == 1):
-            settings.screen.blit(heartScaled,(120,155))
-        if (life == 0):
-            print("YOU DIED")
-    #desenha vidas
+        if (life >= 5):
+            settings.screen.blit(heartScaled, (270, 155))
+        if (life >= 4):
+            settings.screen.blit(heartScaled, (230, 155))
+        if (life >= 3):
+            settings.screen.blit(heartScaled, (190, 155))
+        if (life >= 2):
+            settings.screen.blit(heartScaled, (150, 155))
+        if (life >= 1):
+            settings.screen.blit(heartScaled, (110, 155))
+
     def draw_life(self):
-        player_score = settings.basic_font.render(
-            "LIFES " , True, settings.accent_color)
-        #+str(self.paddle_group.sprite.life)
+        lifes_text = settings.basic_font.render(
+            "LIFES ", True, settings.accent_color)
+
         self.draw_heart(self.paddle_group.sprite.life)
 
-        player_score_rect = player_score.get_rect(
-            midleft=(20, 170))
+        lifes_text_rect = lifes_text.get_rect(
+            midleft=(10, 170))
 
-        settings.screen.blit(player_score, player_score_rect)
+        settings.screen.blit(lifes_text, lifes_text_rect)
 
     def stage_level(self):
-        player_score = settings.basic_font.render(
-            "LEVEL " + str(settings.current_stage), True, settings.accent_color)
+        if(self.current_stage == 0):
+            level_text = settings.basic_font.render(
+                "RANDOMIZER", True, settings.accent_color)
+        else:
+            level_text = settings.basic_font.render(
+                "LEVEL " + str(self.current_stage), True, settings.accent_color)
 
-        player_score_rect = player_score.get_rect(
-            midleft=(20, 20))
+        level_text_rect = level_text.get_rect(
+            midleft=(10, 20))
 
-        settings.screen.blit(player_score, player_score_rect)
+        settings.screen.blit(level_text, level_text_rect)
 
 
 class Mouse(pygame.sprite.Sprite):
@@ -444,7 +473,7 @@ class Button(pygame.sprite.Sprite):
 
         if number_of_images > 0:
             for i in range(number_of_images):
-                image_path = base_images_path + str(i + 1) + ".png"
+                image_path = base_images_path + str(i) + ".png"
                 self.sprites.append(pygame.image.load(image_path))
         else:
             image_path = base_images_path + ".png"
@@ -472,7 +501,7 @@ class Text(pygame.sprite.Sprite):
         self.sprite_velocity = sprite_velocity
 
         for i in range(number_of_images):
-            image_path = base_images_path + str(i + 1) + ".png"
+            image_path = base_images_path + str(i) + ".png"
             self.sprites.append(pygame.image.load(image_path))
 
         self.current_sprite = 0

@@ -17,15 +17,15 @@ pygame.display.set_caption("Pong")  # titulo
 
 score = 0
 
-bg_color = pygame.Color("#020122")  # cor de fundo
+bg_color = pygame.Color("#14003D")  # cor de fundo
 accent_color = (253, 255, 252)  # cor das letras e linha no meio
 basic_font = pygame.font.Font("fonts/8-BIT-WONDER.ttf", 20)  # carrega a fonte
+bigger_basic_font = pygame.font.Font("fonts/8-BIT-WONDER.ttf", 40)
 
-
-#Trilha
+# Trilha
 main_theme = pygame.mixer.Sound("sounds/fireflies.wav")
 
-#Efeitos Sonoros
+# Efeitos Sonoros
 hit_sound = pygame.mixer.Sound("sounds/pong.wav")  # carrega o som de hit
 score_sound = pygame.mixer.Sound("sounds/score.wav")  # carrega o som de score
 destroy_sound = pygame.mixer.Sound(
@@ -41,18 +41,8 @@ guns_power_sound = pygame.mixer.Sound(
 laser_sound = pygame.mixer.Sound(
     "sounds/laser.wav")
 
-current_stage = 1
-is_winning = True
-finished_level = False
-
-powerups = ["grow", "speed", "guns","growBall"]
-'''
-#updatePowerUp -> UP302
-powerups = ["thru","bomb","fireball","gun","grab",
-"life_up","level_pass","brick_weak","slow_ball","brick_weak2",
-"life_loss","shrink_ball","fast_ball","micro_paddle","falling_bricks",
-"expand_paddle", "shrink_paddle", "double_ball", "big_ball", "eight_ball" ]
-'''
+powerups = ["grow_paddle", "shrink_paddle",
+            "increase_paddle_speed", "laser_ammunition", "plus_one_life"]
 
 # cria uma linha que será desenhada no meio da tela
 left_boundary = screen_width/4

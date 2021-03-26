@@ -16,7 +16,7 @@
 </h1>
 
 <h4 align="center"> 
-	🚧  Aplicação finalizada! 🚧
+	🚧  Aplicação em desenvolvimento! 🚧
 </h4>
 
 ## 🏁 Tópicos
@@ -45,14 +45,16 @@ Jogo do arkanoid feito em python para a matéria de Desenvolvimento de Jogos do 
 - [x] Menu para escolher modo de jogo;
 - [x] Animação com sprites;
 - [x] Modo Normal;
-  - [x] Um oponente com uma "inteligência" básica;
-  - [x] Indicação do botão para movimentar o jogador;
-  - [x] A velocidade do oponente aumenta conforma o jogador faz pontos;
-  - [x] Blocos irão aparecer a cada 5 segundos, e aumentam a velocidade da bola quando ela destroi eles.
+  - [x] 5 fases;
 - [x] Modo Randomizer;
-  - [x] 2 jogadores;
-  - [x] Indicação dos botões utilizados para cada jogador;
-  - [x] Blocos irão aparecer a cada 5 segundos, e aumentam a velocidade da bola quando ela destroi eles.
+  - [x] Cada fase é gerada aleatóriamente.
+- [x] Sistema de vidas (3 no inicio e podem chegar até 5, se zerar o jogo acaba).
+- [x] Sistema de poderes:
+  - [x] Aumentar o tamanho da raquete;
+  - [x] Diminuir o tamanho da raquete;
+  - [x] +1 Vida;
+  - [x] - Velocidade (até o dobro da velocidade da raquete);
+  - [x] Munição para lasers (3 munições - 2 tiros para cada uma).
 
 ---
 

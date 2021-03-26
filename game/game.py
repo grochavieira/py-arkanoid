@@ -14,8 +14,7 @@ class GameState():
         self.powerup_group = pygame.sprite.Group()
         self.ball_group = pygame.sprite.GroupSingle()
         self.laser_group = pygame.sprite.Group()
-        self.game_manager = engine.GameManager(
-            self.ball_group, self.paddle_group, self.block_group, self.powerup_group, self.laser_group)
+        self.game_manager = engine.GameManager(self.ball_group, self.paddle_group, self.block_group, self.powerup_group, self.laser_group)
 
         self.player = engine.Player(
             "images/paddle_normal.png", settings.screen_width/2, settings.screen_height - 20, 7)
@@ -346,14 +345,13 @@ class GameState():
         powerup_group = pygame.sprite.Group()
 
         for i in range(11):
-            for j in range(5):
-                new_powerup = engine.PowerUp(
-                    "images/powerups/invisible.png", settings.left_boundary + i * 51 + 60, 50 + j * 26, self.paddle_group)
-                new_breakable_block = engine.BreakableBlock(
-                    "images/blocks/Block1.png", settings.left_boundary + i * 51 + 60, 50 + j * 26, 1, new_powerup)
+            for j in range(11):
+                if (i == 0 and j > 1) or (j == 0 and i > 1) or (i == 10 and j < 9) or (j == 10 and i < 9) or i == j+1 or j == i+1:
+                    new_powerup = engine.PowerUp("images/powerups/invisible.png", settings.left_boundary + j * 51 + 60, 50 + i * 26, self.paddle_group)
+                    new_breakable_block = engine.BreakableBlock("images/blocks/Block1.png", settings.left_boundary + j * 51 + 60, 50 + i * 26, 2, new_powerup)
 
-                self.block_group.add(new_breakable_block)
-                self.powerup_group.add(new_powerup)
+                    self.block_group.add(new_breakable_block)
+                    self.powerup_group.add(new_powerup)
 
         self.ball.reset_ball(True)
 
@@ -387,14 +385,13 @@ class GameState():
         powerup_group = pygame.sprite.Group()
 
         for i in range(11):
-            for j in range(5):
-                new_powerup = engine.PowerUp(
-                    "images/powerups/invisible.png", settings.left_boundary + i * 51 + 60, 50 + j * 26, self.paddle_group)
-                new_breakable_block = engine.BreakableBlock(
-                    "images/blocks/Block1.png", settings.left_boundary + i * 51 + 60, 50 + j * 26, 1, new_powerup)
+            for j in range(11):
+                if i == 0 or j == 0 or i == 5 or j == 5 or i == 10 or j == 10:
+                    new_powerup = engine.PowerUp("images/powerups/invisible.png", settings.left_boundary + j * 51 + 60, 50 + i * 26, self.paddle_group)
+                    new_breakable_block = engine.BreakableBlock("images/blocks/Block1.png", settings.left_boundary + j * 51 + 60, 50 + i * 26, 3, new_powerup)
 
-                self.block_group.add(new_breakable_block)
-                self.powerup_group.add(new_powerup)
+                    self.block_group.add(new_breakable_block)
+                    self.powerup_group.add(new_powerup)
 
         self.ball.reset_ball(True)
 
@@ -428,14 +425,13 @@ class GameState():
         powerup_group = pygame.sprite.Group()
 
         for i in range(11):
-            for j in range(5):
-                new_powerup = engine.PowerUp(
-                    "images/powerups/invisible.png", settings.left_boundary + i * 51 + 60, 50 + j * 26, self.paddle_group)
-                new_breakable_block = engine.BreakableBlock(
-                    "images/blocks/Block1.png", settings.left_boundary + i * 51 + 60, 50 + j * 26, 1, new_powerup)
+            for j in range(11):
+                if (i == 0 and j%5 != 0) or (i == 1 and j%5 == 0) or (i - j == 5) or (i + j == 15) or ((j == 0 or j == 10) and (1 <= i <= 4)):
+                    new_powerup = engine.PowerUp("images/powerups/invisible.png", settings.left_boundary + j * 51 + 60, 50 + i * 26, self.paddle_group)
+                    new_breakable_block = engine.BreakableBlock("images/blocks/Block1.png", settings.left_boundary + j * 51 + 60, 50 + i * 26, 4, new_powerup)
 
-                self.block_group.add(new_breakable_block)
-                self.powerup_group.add(new_powerup)
+                    self.block_group.add(new_breakable_block)
+                    self.powerup_group.add(new_powerup)
 
         self.ball.reset_ball(True)
 
@@ -469,14 +465,14 @@ class GameState():
         powerup_group = pygame.sprite.Group()
 
         for i in range(11):
-            for j in range(5):
-                new_powerup = engine.PowerUp(
-                    "images/powerups/invisible.png", settings.left_boundary + i * 51 + 60, 50 + j * 26, self.paddle_group)
-                new_breakable_block = engine.BreakableBlock(
-                    "images/blocks/Block1.png", settings.left_boundary + i * 51 + 60, 50 + j * 26, 1, new_powerup)
+            for j in range(11):
+                if (j-i)%2 == 0:
+                    new_powerup = engine.PowerUp("images/powerups/invisible.png", settings.left_boundary + j * 51 + 60, 50 + i * 26, self.paddle_group)
+                    new_breakable_block = engine.BreakableBlock("images/blocks/Block1.png", settings.left_boundary + j * 51 + 60, 50 + i * 26, (i%7)+1, new_powerup)
 
-                self.block_group.add(new_breakable_block)
-                self.powerup_group.add(new_powerup)
+                    self.block_group.add(new_breakable_block)
+                    self.powerup_group.add(new_powerup)
+
 
         self.ball.reset_ball(True)
 
@@ -514,7 +510,7 @@ class GameState():
         if self.state == "randomizer":
             self.randomizer()
         if self.state == "level_1":
-            self.level_5()
+            self.level_1()
         if self.state == "level_2":
             self.level_2()
         if self.state == "level_3":

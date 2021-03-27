@@ -174,9 +174,7 @@ As seguintes ferramentas foram usadas na construção do projeto:
 
 
 <p>
-<kbd>
-  <img src="https://avatars.githubusercontent.com/u/49913795?s=400&u=4025fc41010d4a87d90cf658156b1d7807c69ac8&v=4" width="150px;" alt="victorM"/>
-</kbd>
+  <img src="https://avatars.githubusercontent.com/u/49913795?s=400&u=4025fc41010d4a87d90cf658156b1d7807c69ac8&v=4" width="150px;" style="border-radius:50%" alt="victorM"/>
 <br />
  <sub><strong>🔥 Victor Masumoto 🔥</strong></sub>
 </p>
@@ -192,5 +190,5 @@ As seguintes ferramentas foram usadas na construção do projeto:
 Este projeto esta sobe a licença [MIT](./LICENSE).
 
 Feito com :satisfied: por Guilherme Rocha Vieira 👋🏽 [Entre em contato!](https://www.linkedin.com/in/grochavieira/)
-
+                      por Victor Masumoto 👈   
 ---

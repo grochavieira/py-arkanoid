@@ -189,7 +189,8 @@ As seguintes ferramentas foram usadas na construção do projeto:
 
 Este projeto esta sobe a licença [MIT](./LICENSE).
 
-Feito com :satisfied: por Guilherme Rocha Vieira [Entre em contato!](https://www.linkedin.com/in/grochavieira/) 👋🏽 e por Victor Masumoto [Veja o Repositório](https://github.com/victor-m302)👈  
+Feito com :satisfied: por Guilherme Rocha Vieira [Entre em contato!](https://www.linkedin.com/in/grochavieira/) 👋🏽 
+		      por Victor Masumoto [Veja o Repositório](https://github.com/victor-m302)👈  
  
 ---
                      

@@ -49,12 +49,13 @@ class Laser(Block):
 
 
 class PowerUp(Block):
-    def __init__(self, image_path, x_pos, y_pos, paddle):
+    def __init__(self, image_path, x_pos, y_pos, paddle, ball):
         super().__init__(image_path, x_pos, y_pos)
-        self.powerup_type = settings.powerups[random.randint(0, 4)]
+        self.powerup_type = settings.powerups[random.randint(5, 5)]
         self.is_active = False
         self.speed = 2
         self.paddle = paddle
+        self.ball = ball
         self.spawn_value = random.randint(1, 100)
 
     def update(self):
@@ -80,7 +81,7 @@ class PowerUp(Block):
                 collision_paddle.rect = collision_paddle.image.get_rect(
                     center=(collision_paddle.rect.center))
 
-            # raquete maior
+            # raquete menor
             if(self.powerup_type == "shrink_paddle"):
                 pygame.mixer.Sound.play(settings.grow_power_sound)
                 collision_paddle.image = pygame.image.load(
@@ -106,6 +107,12 @@ class PowerUp(Block):
                 if(collision_paddle.life < 5):
                     collision_paddle.life += 1
                 pygame.mixer.Sound.play(settings.grow_power_sound)
+
+            if(self.powerup_type == "ball_fire"):
+                # carrega o sprite
+                self.ball.sprite.image = pygame.image.load("images/balls/ball_fire.png")
+                # desenha o retangulo em volta da imagem
+                self.ball.sprite.rect = self.ball.sprite.image.get_rect(center=(self.ball.sprite.rect.center))
 
             self.kill()
 

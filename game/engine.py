@@ -8,8 +8,6 @@ import settings
 # um retangulo ao redor dela, para que não sejá
 # necessário repetir a mesma coisa nas outras por
 # se tratar de elementos em comum
-
-
 class Block(pygame.sprite.Sprite):
     def __init__(self, image_path, x_pos, y_pos):
         super().__init__()
@@ -18,6 +16,7 @@ class Block(pygame.sprite.Sprite):
         self.rect = self.image.get_rect(center=(x_pos, y_pos))
 
 
+# classe dos lasers que são atirados pela raquete/nave
 class Laser(Block):
     def __init__(self, image_path, x_pos, y_pos, blocks):
         super().__init__(image_path, x_pos, y_pos)
@@ -48,10 +47,11 @@ class Laser(Block):
                 collision_block.life -= 1
 
 
+# classe dos poderes
 class PowerUp(Block):
     def __init__(self, image_path, x_pos, y_pos, paddle, ball):
         super().__init__(image_path, x_pos, y_pos)
-        self.powerup_type = settings.powerups[random.randint(5, 5)]
+        self.powerup_type = settings.powerups[random.randint(0, 4)]
         self.is_active = False
         self.speed = 2
         self.paddle = paddle
@@ -59,7 +59,7 @@ class PowerUp(Block):
         self.spawn_value = random.randint(1, 100)
 
     def update(self):
-        if self.spawn_value > 30:
+        if self.spawn_value > 70:
             self.kill()
         if self.is_active:
             self.image = pygame.image.load(
@@ -120,6 +120,7 @@ class PowerUp(Block):
             self.kill()
 
 
+# classe dos blocos quebráveis
 class BreakableBlock(Block):
     def __init__(self, image_path, x_pos, y_pos, life, powerup):
         super().__init__(image_path, x_pos, y_pos)

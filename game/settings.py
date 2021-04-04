@@ -42,7 +42,7 @@ laser_sound = pygame.mixer.Sound(
     "sounds/laser.wav")
 
 powerups = ["grow_paddle", "shrink_paddle",
-            "increase_paddle_speed", "laser_ammunition", "plus_one_life", "ball_fire"]
+            "increase_paddle_speed", "laser_ammunition", "plus_one_life"]
 
 
 

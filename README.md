@@ -12,7 +12,7 @@
  
 </p>
 <h1 align="center">
-    <img src="./assets/logo.png" />
+    <img src="./.github/logo.png" />
 </h1>
 
 <h4 align="center"> 
@@ -66,49 +66,49 @@ Jogo do arkanoid feito em python para a matéria de Desenvolvimento de Jogos do 
 ### Tela Inicial
 
 <div align="center">
-    <img width="100%" src="./assets/arkanoid_screen.gif" />
+    <img width="100%" src="./.github/arkanoid_screen.gif" />
 </div>
 
 ### Randomizer
 
 <div align="center">
-    <img width="100%" src="./assets/randomizer.PNG" />
+    <img width="100%" src="./.github/randomizer.PNG" />
 </div>
 
 ### Level 1
 
 <div align="center">
-    <img width="100%" src="./assets/level_1.PNG" />
+    <img width="100%" src="./.github/level_1.PNG" />
 </div>
 
 ### Level 2
 
 <div align="center">
-    <img width="100%" src="./assets/level_2.PNG" />
+    <img width="100%" src="./.github/level_2.PNG" />
 </div>
 
 ### Level 3
 
 <div align="center">
-    <img width="100%" src="./assets/level_3.PNG" />
+    <img width="100%" src="./.github/level_3.PNG" />
 </div>
 
 ### Level 4
 
 <div align="center">
-    <img width="100%" src="./assets/level_4.PNG" />
+    <img width="100%" src="./.github/level_4.PNG" />
 </div>
 
 ### Level 5
 
 <div align="center">
-    <img width="100%" src="./assets/level_5.PNG" />
+    <img width="100%" src="./.github/level_5.PNG" />
 </div>
 
 ### Lost Screen
 
 <div align="center">
-    <img width="100%" src="./assets/lost_screen.PNG" />
+    <img width="100%" src="./.github/lost_screen.PNG" />
 </div>
 
 ---
@@ -172,7 +172,6 @@ As seguintes ferramentas foram usadas na construção do projeto:
 
 </p>
 
-
 <p>
 <img src="https://avatars.githubusercontent.com/u/49913795?s=400&u=4025fc41010d4a87d90cf658156b1d7807c69ac8&v=4" style="border-radius: 50%"  width="150px;" alt="victorM"/>
 <br />
@@ -189,9 +188,7 @@ As seguintes ferramentas foram usadas na construção do projeto:
 
 Este projeto esta sobe a licença [MIT](./LICENSE).
 
-Feito com :satisfied: por Guilherme Rocha Vieira [Entre em contato!](https://www.linkedin.com/in/grochavieira/) 👋🏽 <br> 
-		<br>  por Victor Masumoto [Veja o Repositório](https://github.com/victor-m302)👈  
- 
----
-                     
+Feito com :satisfied: por Guilherme Rocha Vieira [Entre em contato!](https://www.linkedin.com/in/grochavieira/) 👋🏽 <br>
+<br> por Victor Masumoto [Veja o Repositório](https://github.com/victor-m302)👈
 
+---

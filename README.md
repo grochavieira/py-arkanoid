@@ -176,15 +176,10 @@ As seguintes ferramentas foram usadas na construção do projeto:
       <br />
       <sub><strong>🌟 Guilherme Rocha Vieira 🌟</strong></sub>
       </p>
-
       <p align="center">
-
       [![Linkedin Badge](https://img.shields.io/badge/-linkedin-blue?style=flat&logo=Linkedin&logoColor=white&link=https://www.linkedin.com/in/grochavieira/)](https://www.linkedin.com/in/grochavieira/)
-
       </p>
-
     </td>
-
     <td width="50%">
       <img src="https://avatars.githubusercontent.com/u/49913795?s=400&u=4025fc41010d4a87d90cf658156b1d7807c69ac8&v=4" style="border-radius: 50%"  width="150px;" alt="victorM"/>
       <br />

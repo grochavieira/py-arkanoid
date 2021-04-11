@@ -27,7 +27,7 @@
 👉<a href="#-layout" style="text-decoration: none"> Layout</a> <br/>
 👉<a href="#-como-executar-o-projeto" style="text-decoration: none"> Como executar</a> <br/>
 👉<a href="#-tecnologias" style="text-decoration: none"> Tecnologias</a> <br/>
-👉<a href="#-autor" style="text-decoration: none"> Autor</a> <br/>
+👉<a href="#-autor" style="text-decoration: none"> Autores</a> <br/>
 👉<a href="#user-content--licença" style="text-decoration: none"> Licença</a>
 
 </p>
@@ -113,6 +113,16 @@ Jogo do arkanoid feito em python para a matéria de Desenvolvimento de Jogos do 
 
 ---
 
+## 🕹️ Demonstração
+
+<a name="-demonstracao"></a>
+
+<a align="center" href="https://www.linkedin.com/feed/update/urn:li:activity:6781367582982332416/">
+    <img alt="arkanoid demonstração" src="https://img.shields.io/static/v1?label=post&message=arkanoid&color=0072B1&style=flat&logo=linkedin">
+</a>
+
+---
+
 ## 🚀 Como executar o projeto
 
 ### Pré-requisitos
@@ -155,7 +165,7 @@ As seguintes ferramentas foram usadas na construção do projeto:
 
 ---
 
-<a name="-autor"></a>
+<a name="-autores"></a>
 
 ## 🦸‍♂️ **Autores**
 

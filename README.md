@@ -171,7 +171,7 @@ As seguintes ferramentas foram usadas na construção do projeto:
 
 <table align="center" width="100%">
   <tr align="center">
-    <td width="50%">
+    <td>
       <img src="https://avatars.githubusercontent.com/u/48029638?s=460&u=40540691957b5aabf04e2e1d4cddf8d3633cb1be&v=4" width="150px;" alt="grochavieira"/>
       <br />
       <sub><strong>🌟 Guilherme Rocha Vieira 🌟</strong></sub>
@@ -182,7 +182,7 @@ As seguintes ferramentas foram usadas na construção do projeto:
       </a>
       </p>
     </td>
-    <td width="50%">
+    <td>
       <img src="https://avatars.githubusercontent.com/u/49913795?s=400&u=4025fc41010d4a87d90cf658156b1d7807c69ac8&v=4" style="border-radius: 50%"  width="150px;" alt="victorM"/>
       <br />
       <sub><strong>🔥 Victor Masumoto 🔥</strong></sub>

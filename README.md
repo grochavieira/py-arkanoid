@@ -178,11 +178,16 @@ As seguintes ferramentas foram usadas na construção do projeto:
       </p>
     </td>
     <td>
+      <img src="https://avatars.githubusercontent.com/u/48140030?v=4" width="150px;" alt="thomasafc"/>
+      <br />
+      <sub><strong>🌟 Thomas Anderson 🌟</strong></sub>
+      </p>
+    </td>
+    <td>
       <img src="https://avatars.githubusercontent.com/u/49913795?s=400&u=4025fc41010d4a87d90cf658156b1d7807c69ac8&v=4" style="border-radius: 50%"  width="150px;" alt="victorM"/>
       <br />
       <sub><strong>🔥 Victor Masumoto 🔥</strong></sub>
     </td>
-
   </tr>
 
 </table>
